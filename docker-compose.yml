@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: test
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - mynetwork
+    deploy:
+      resources:
+        limits:
+          memory: 3g
+          cpus: "2"
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    networks:
+      - mynetwork
+
+  node:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: node
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    networks:
+      - mynetwork
+    deploy:
+      resources:
+        limits:
+          memory: 3g
+          cpus: "2"
+
+networks:
+  mynetwork:
+    driver: bridge

@@ -30,8 +30,12 @@
 ```bash
   docker compose up -d
 ```
+7. É possivél acessar o banco pelo mongo-express que está no docker (Docker executando)
+- http://localhost:8081/
+- nome: admin
+- senha: pass
 
-7. Execute os comandos abaixo para executar os testes no projeto.
+8. Execute os comandos abaixo para executar os testes no projeto.
 
 - **Testes sem logs**
 ```bash 

@@ -13,11 +13,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     networks:
       - mynetwork
-    deploy:
-      resources:
-        limits:
-          memory: 3g
-          cpus: "2"
 
   mongo-express:
     image: mongo-express
@@ -31,23 +26,6 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
     networks:
       - mynetwork
-
-  node:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    container_name: node
-    ports:
-      - 3000:3000
-    volumes:
-      - .:/app
-    networks:
-      - mynetwork
-    deploy:
-      resources:
-        limits:
-          memory: 3g
-          cpus: "2"
 
 networks:
   mynetwork:

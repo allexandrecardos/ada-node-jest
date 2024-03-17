@@ -7,9 +7,7 @@ const PORT = process.env.PORT
 
 mongoose.set('strictQuery', false);
 
-mongoose.connect(process.env.MONGO_DB_URL,{
-    bufferCommands: false,
-})
+mongoose.connect(process.env.MONGO_DB_URL)
     .then(() => {
         console.log(`Mongo DB connected:::${mongoose.connection.name}`)
         server.listen(PORT, () => console.log(`App listening on PORT:::${PORT}`))
